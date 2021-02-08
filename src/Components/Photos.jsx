@@ -8,17 +8,25 @@ const Photos = ({ data, searchData }) => {
       <div>
         <SearchPhoto searchData={searchData} />
       </div>
-
       <section className="photo">
         {data.map((value) => {
           return (
             <div className="img__wrapper" key={value.id}>
-              <img src={value.urls.full} className="img" />;
-              <div className="info">
-                <h3>{value.user.name}</h3>
-                <p>{value.user.total_likes}</p>
-
-                <a href={value.portfolio_url}>user</a>
+              <img src={value.urls.full} className="img" />
+              <div className="info__overlay">
+                <div>
+                  <h3>{value.user.name}</h3>
+                  <p>{value.user.total_likes}</p>
+                </div>
+                <div>
+                  <a href={value.user.portfolio_url}>
+                    <img
+                      src={value.user.profile_image.medium}
+                      alt=""
+                      className="user-img"
+                    />
+                  </a>
+                </div>
               </div>
             </div>
           );

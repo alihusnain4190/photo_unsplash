@@ -6,13 +6,32 @@ import Photos from "./Components/Photos";
 function App() {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const searchData = (value) => {
-    console.log(value);
+  const [page, setPage] = useState(0);
+  const searchData = async (value) => {
+    const { results } = await fetchData(value, page);
+    setLoading(false);
+    console.log(results);
+    setPage(1);
+    setData((prev) => {
+      return [...prev, ...results];
+    });
   };
   useEffect(async () => {
-    const result = await fetchData();
+    const result = await fetchData("", page);
     setLoading(false);
-    setData(result);
+    setData((prev) => {
+      return [...prev, ...result];
+    });
+  }, [page]);
+  useEffect(() => {
+    const event = window.addEventListener("scroll", () => {
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+        setPage((prev) => {
+          return prev + 1;
+        });
+      }
+    });
+    return () => window.removeEventListener("scroll", event);
   }, []);
   if (isLoading === true) return "...loading";
   return (
