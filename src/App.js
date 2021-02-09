@@ -17,18 +17,7 @@ function App() {
   };
   const fetchImages = async () => {
     setLoading(true);
-    // let url;
-    // const urlPage = `&page=${page}`;
-    // const urlQuery = `&query=${query}`;
-    // if (query) {
-    //   url = `${searchUrl}${clientID}${urlPage}${urlQuery}`;
-    // } else {
-    //   url = `${mainUrl}${clientID}${urlPage}`;
-    // }
-    // fetchData(query, page);
     try {
-      // const response = await fetch(url);
-      // const data = await response.json();
       const data = await fetchData(query, page);
       setPhotos((prev) => {
         if (query && page === 1) {

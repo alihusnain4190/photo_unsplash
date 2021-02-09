@@ -1,10 +1,44 @@
 .App {
+  .form {
+    margin: auto;
+    margin-top: 1rem;
+    text-align: center;
+    .form__input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      font: 15px/1 "Open Sans", sans-serif;
+      color: #333;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      width: 100%;
+      max-width: 500px;
+      background-color: #fff;
+      border: none;
+      padding: 4px 4px 4px 4px;
+      border-radius: 2px;
+      box-shadow: none;
+      // outline: none;
+      margin-right: 10px;
+      box-sizing: border-box;
+    }
+    .btn {
+      padding: 7px 10px;
+      background-color: violet;
+      color: yellowgreen;
+      outline: none;
+      border: none;
+       text-transform: uppercase;
+      border-radius: 4px;
+    }
+  }
   .photo {
-    margin-top: 3rem;
+    margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     text-align: center;
+
     .img__wrapper {
       position: relative;
       width: 300px;

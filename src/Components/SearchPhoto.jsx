@@ -11,9 +11,17 @@ const SearchPhoto = ({ searchData }) => {
     searchData(data);
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={data} onChange={handleClick}></input>
-      <button type="submit">Search</button>
+    <form onSubmit={handleSubmit} className="form">
+      <input
+        className="form__input"
+        type="text"
+        value={data}
+        placeholder="Search your favorite image"
+        onChange={handleClick}
+      ></input>
+      <button type="submit" className="btn">
+        Search
+      </button>
     </form>
   );
 };
