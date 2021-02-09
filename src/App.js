@@ -4,24 +4,48 @@ import "./App.scss";
 import Photos from "./Components/Photos";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(0);
+  const [query, setQuery] = useState("");
+  const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
+  const mainUrl = `https://api.unsplash.com/photos/`;
+  const searchUrl = `https://api.unsplash.com/search/photos/`;
   const searchData = async (value) => {
-    const { results } = await fetchData(value, page);
-    setLoading(false);
-    console.log(results);
+    setQuery(value);
     setPage(1);
-    setData((prev) => {
-      return [...prev, ...results];
-    });
+  };
+  const fetchImages = async () => {
+    setLoading(true);
+    // let url;
+    // const urlPage = `&page=${page}`;
+    // const urlQuery = `&query=${query}`;
+    // if (query) {
+    //   url = `${searchUrl}${clientID}${urlPage}${urlQuery}`;
+    // } else {
+    //   url = `${mainUrl}${clientID}${urlPage}`;
+    // }
+    // fetchData(query, page);
+    try {
+      // const response = await fetch(url);
+      // const data = await response.json();
+      const data = await fetchData(query, page);
+      setPhotos((prev) => {
+        if (query && page === 1) {
+          return data.results;
+        } else if (query) {
+          return [...prev, ...data.results];
+        } else {
+          return [...prev, ...data];
+        }
+      });
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   };
   useEffect(async () => {
-    const result = await fetchData("", page);
-    setLoading(false);
-    setData((prev) => {
-      return [...prev, ...result];
-    });
+    fetchImages();
   }, [page]);
   useEffect(() => {
     const event = window.addEventListener("scroll", () => {
@@ -33,10 +57,10 @@ function App() {
     });
     return () => window.removeEventListener("scroll", event);
   }, []);
-  if (isLoading === true) return "...loading";
+  if (loading === true) return "...loading";
   return (
     <div className="App">
-      <Photos searchData={searchData} data={data}></Photos>
+      <Photos searchData={searchData} data={photos}></Photos>
     </div>
   );
 }

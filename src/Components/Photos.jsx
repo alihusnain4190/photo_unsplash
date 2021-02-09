@@ -2,7 +2,7 @@ import React from "react";
 import SearchPhoto from "./SearchPhoto";
 
 const Photos = ({ data, searchData }) => {
-  console.log(data);
+
   return (
     <main>
       <div>
